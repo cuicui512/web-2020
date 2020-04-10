@@ -72,7 +72,9 @@
 ## 二、技术架构：
 ![MVC模型概述](<https://images2018.cnblogs.com/blog/1027054/201805/1027054-20180521151956650-1028459743.png>)
 
+<br>
 ><font color="red">**模型-视图-控制器模式**</font>，也称<font color="red">**MVC模式（Model View Controller）**</font>。用一种``业务逻辑、数据、界面``显示分离的方法组织代码，将业务逻辑聚集到一个部件里面。
+<br>
 
 <font color="blue">``模型（Model）``：</font> 负责存储系统的中心数据。<br>
 <font color="red">``视图（View）``：</font>将信息显示给用户（可以定义多个视图）。  
@@ -90,16 +92,17 @@
 
 ![SpringMVC架构](<https://images2018.cnblogs.com/blog/1027054/201805/1027054-20180522173053209-1511254402.png>)
 
-一个业务可大致分为：
-事务的请求，捕获，分发，处理，返回，响应，可与如下步骤对应：  
-**Http请求——>寻找处理器——>调用处理器——>调用业务处理和返回结果——>处理视图映射并返回模型——>Http响应**  
+一个业务可大致分为：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**事务的请求，捕获，分发，处理，返回，响应**<br>
+可与如下步骤对应：<br>  
+<font color="red">**Http请求——>寻找处理器——>调用处理器——>调用业务处理和返回结果——>处理视图映射并返回模型——>Http响应** </font> 
 
-(1)``Http请求：``客户端请求提交到*DispatcherServlet（分发器）*。  
-(2)``寻找处理器：``由*DispatcherServlet*控制器查询一个或多个*HandlerMapping*（处理映射器），找到处理请求的*Controller*。  
-(3)``调用处理器：``*DispatcherServlet*将请求提交到*Controller*。  
-(4)(5)``调用业务处理和返回结果：``*Controller*调用业务逻辑处理后，返回*ModelAndView*。  
-(6)(7)``处理视图映射并返回模型：`` *DispatcherServlet*查询一个或多个*ViewResoler*视图解析器，找到*ModelAndView*指定的视图。  
-(8)``Http响应：``视图负责将结果显示到客户端。
+(1)<font color="blue">``Http请求：``</font>客户端请求提交到**DispatcherServlet（分发器）**。  
+(2)<font color="blue">``寻找处理器：``</font>由**DispatcherServlet**控制器查询一个或多个**HandlerMapping**（处理映射器），找到处理请求的**Controller**。  
+(3)<font color="blue">``调用处理器：``</font>**DispatcherServlet**将请求提交到**Controller**。  
+(4)(5)<font color="blue">``调用业务处理和返回结果：``</font>  **Controller**调用业务逻辑处理后，返回**ModelAndView**。  
+(6)(7)<font color="blue">``处理视图映射并返回模型：``</font> **DispatcherServlet**查询一个或多个**ViewResoler**视图解析器，找到**ModelAndView**指定的视图。  
+(8)<font color="blue">``Http响应：``</font>视图负责将结果显示到客户端。
 
 ## 三、内容建模：
 
@@ -110,6 +113,5 @@
 
 ## 五、超文本建模
 ![](https://ae01.alicdn.com/kf/H1d866132275c4ed38b45e0ebda1d641d3.jpg)
-##
 
 2020-4-9
