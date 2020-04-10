@@ -1,5 +1,7 @@
-# **项目名称：校园二手交易平台**
-<hr>
+# I.项目描述<hr>
+
+## 项目名称
+> **校园二手交易平台**
 
 ## 成员组成：<br>
 >**<font size =4 color="red">林鑫</font> 杨洋 侯雪静 曹永颖 李煌 李恒宇**
@@ -54,15 +56,24 @@
   >浏览器版本为IE6.0及以上，Win7以上操作系统
   
 ## 八、项目风险分析及应对策略
- >经济问题..
+### 经济问题
+>&nbsp;&nbsp;**解决方案**：<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.减少开发时间，提高开发效率，缩短开发周期
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2.
+ 
+<br>
+<hr>
 
-## 分工计划：
+
+# II.项目实现
+
+## 一、项目分工：
 ![](https://img-blog.csdnimg.cn/20200409222158769.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzQ1MjQyNA==,size_16,color_FFFFFF,t_70)
 
-## 技术架构：
+## 二、技术架构：
 ![MVC模型概述](<https://images2018.cnblogs.com/blog/1027054/201805/1027054-20180521151956650-1028459743.png>)
 
-**模型-视图-控制器模式**，也称**MVC模式（Model View Controller）**。用一种``业务逻辑、数据、界面``显示分离的方法组织代码，将业务逻辑聚集到一个部件里面。
+>**模型-视图-控制器模式**，也称**MVC模式（Model View Controller）**。用一种``业务逻辑、数据、界面``显示分离的方法组织代码，将业务逻辑聚集到一个部件里面。
 
 ``模型（Model）``：负责存储系统的中心数据。  
 ``视图（View）``：将信息显示给用户（可以定义多个视图）。  
@@ -91,14 +102,14 @@
 (6)(7)``处理视图映射并返回模型：`` *DispatcherServlet*查询一个或多个*ViewResoler*视图解析器，找到*ModelAndView*指定的视图。  
 (8)``Http响应：``视图负责将结果显示到客户端。
 
-## 内容建模：
+## 三、内容建模：
 
 ![](https://ae01.alicdn.com/kf/H2d4555f5d6194e55845de4af372c32b9Z.jpg)
 
-## 功能需求建模
+## 四、功能需求建模
 ![](https://ae01.alicdn.com/kf/Hb3fd651ddc064880b1c91d8cef73143a1.jpg)
 
-## 超文本建模
+## 五、超文本建模
 ![](https://ae01.alicdn.com/kf/H1d866132275c4ed38b45e0ebda1d641d3.jpg)
 ##
 
