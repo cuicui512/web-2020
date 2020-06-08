@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>TheOne 商城</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/OneCommunity.css">
+    <link rel="stylesheet" href="/css/editormd.min.css">
+    <link rel="stylesheet" href="/css/editormd.preview.min.css">
+    <script src="/js/jquery-3.5.0.min.js"></script>
+    <script src="/js/bootbox.min.js" text="application/javascript"></script>
+    <script src="/js/bootstrap.min.js" text="application/javascript"></script>
+    <script src="/js/One.js" text="application/javascript"></script>
+    <script src="/js/editormd.min.js" text="application/javascript"></script>
+    <script src="/js/lib/marked.min.js" text="application/javascript"></script>
+    <script src="/js/lib/prettify.min.js" text="application/javascript"></script>
+
+</head>
+<body>
+<!--导航菜单-->
+<div th:insert="navigation::nav"></div>
+
+<div class="container-fluid main">
+    <div class="row" style="background-color: #ffffff">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+
+            <h2><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>发起</h2>
+            <hr/>
+            <form action="/publish" method="POST">
+                <input type="hidden" name="id" th:value="${id}">
+                <div class="form-group">
+                    <label for="title">商品标题(简单扼要)</label>
+                    <input type="text" class="form-control" id="title" autocomplete="off" th:value="${title}"
+                           name="title" placeholder="问题标题....">
+                </div>
+                <!--                实现富文本编辑器-->
+                <div class="form-group" id="question-editor">
+                    <label for="description">商品描述补充(必填，请参考右侧提示)</label>
+                    <textarea name="description" id="description" class="form-control" th:text="${description}"
+                              cols="30" rows="10" style="display:none;"></textarea>
+                    <!--            初始化富文本编辑器-->
+                    <script type="text/javascript">
+                        $(function () {
+                            let editor = editormd("question-editor", {
+                                width: "100%",
+                                height: 400,
+                                path: "/js/lib/",
+                                watch: false,
+                                delay: 0,
+                                placeholder: "请输入内容描述.....",
+                                saveHTMLToTextarea: true,
+                                emoji: true,
+                                imageUpload: true,
+                                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                                imageUploadURL: "/file/upload",
+                            });
+                        });
+                    </script>
+                </div>
+                <!--                标签列-->
+                <div class="form-group">
+                    <label for="tag">添加商品标签：</label>
+                    <input type="text" class="form-control" id="tag" name="tag" autocomplete="off"
+                           th:value="${tag}" placeholder="请输入商品标签（以‘ ’空格分隔）" onclick="inputTag()">
+                    <!--                    展示标签库-->
+                    <!--  折叠框-->
+                    <div id="select-tags"
+                         style="display: none;width: 50%;height: auto;border: 1px solid #999999;margin: 10px;border-radius: 5px;">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" th:each="selectCategory:${tags}">
+                                <a th:href="${'#'+selectCategory.categoryName}" aria-controls="home" role="tab"
+                                   data-toggle="tab" th:text="${selectCategory.categoryName}"></a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" th:each="selectCategory:${tags}"
+                                 th:id="${selectCategory.categoryName}">
+                                <span th:each="selectTag:${selectCategory.tags}">
+                                       <span class="label label-info tag-list">
+                                            <span class="glyphicon glyphicon-tags">
+                                            </span>&nbsp;&nbsp;
+                                           <span onclick="selectTag(this)" th:data-tag="${selectTag}"
+                                                 th:text="${selectTag}">
+                                           </span>
+                                        </span>&nbsp;
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                发布按钮-->
+                <span th:text="${error}" style="color: red;position:relative;left: 10px;font-size: 10px;"></span>
+                <button type="submit" class="btn btn-success btn-publish">发布</button>
+            </form>
+        </div>
+
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div>
+                <h3>问题发起指南</h3>
+                ·商品标题：请用精简的语言描述您发布的商品，不超过25字<br>
+                ·商品描述补充：详细补充您的商品描述内容，并确保商品描述清晰直观，并提供一些相关的资料（图片、文件等）<br>
+                ·选择商品标签：选择一个或者多个合适的标签，用空格分开，每个不超过10个字<br>
+            </div>
+            <div>
+                <h3>官微助手</h3>
+                <img src="/images/wechatLogo.jpg" alt="图片" style="width: 100px;height: 100px;">
+            </div>
+
+            <h3>热门关注</h3>
+            拥你所有，拥你所没有，所谓专业。
+            <ul>
+                <li th:each="list:${recommendList.data}">
+                    <a th:href="@{'/question/'+${list.id}}" th:text="${list.title}" id="related"></a>
+                </li>
+            </ul>
+        </div>
+
+<!--        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">-->
+
+<!--            <h3>热门关注</h3>-->
+<!--            拥你所有，拥你所没有，所谓专业。-->
+<!--&lt;!&ndash;            <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li th:each="list:${recommendList.data}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a th:href="@{'/question/'+${list.id}}" th:text="${list.title}" id="related"></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            </ul>&ndash;&gt;-->
+<!--        </div>-->
+    </div>
+</div>
+
+<!--底部备案号-->
+<div th:insert="footer::footer"></div>
+
+</body>
+</html>

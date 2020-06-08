@@ -1,0 +1,23 @@
+{
+  "properties": [
+    {
+      "name": "github.client.id",
+      "type": "java.lang.String",
+      "description": "Description for github.client.id."
+    },
+    {
+      "name": "github.client.id",
+      "type": "java.lang.String",
+      "description": "Description for github.client.id."
+    },
+    {
+      "name": "github.redirect.uri",
+      "type": "java.lang.String",
+      "description": "Description for github.redirect.uri."
+    },
+    {
+      "name": "logoURL",
+      "type": "java.lang.String",
+      "description": "Description for logoURL."
+    }
+  ] }

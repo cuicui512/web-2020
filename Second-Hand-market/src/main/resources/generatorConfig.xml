@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin">
+        </plugin>
+        <!--   数据库连接     -->
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:~/OneDatabase"
+                        userId="h2"
+                        password="123456">
+        </jdbcConnection>
+        <!---->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!--生成Java模型-->
+        <!-- windows 用 src\main\java   mac  src/main/java     -->
+        <javaModelGenerator targetPackage="com.example.one.model" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--xml 放到resource下了-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- dao 包 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.one.mapper" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="user" domainObjectName="User">
+        </table>
+        <table tableName="question" domainObjectName="Question">
+        </table>
+        <table tableName="comment" domainObjectName="Comment">
+        </table>
+        <table tableName="notification" domainObjectName="Notification">
+        </table>
+        <!--        <table  tableName="news" domainObjectName="News" ></table>-->
+        <!--        <table  tableName="notification" domainObjectName="Notification" ></table>-->
+    </context>
+</generatorConfiguration>

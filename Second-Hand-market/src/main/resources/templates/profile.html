@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title th:text="${sectionName}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/OneCommunity.css">
+    <script src="/js/jquery-3.5.0.min.js"></script>
+    <script src="/js/bootbox.min.js" text="application/javascript"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<!--导航菜单-->
+<div th:insert="navigation::nav"></div>
+<div class="container-fluid main profile">
+    <div class="row" style="background-color: #ffffff">
+
+        <!--        -->
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <div>
+                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                <span th:text="${sectionName}" style="font-size: 30px"></span>
+            </div>
+            <hr/>
+            <!--            问题列表-->
+
+            <!--/*@thymesVar id="questions" type=""*/-->
+            <!--/*@thymesVar id="questions" type=""*/-->
+
+            <!--            我的问题-->
+            <div th:if="${sectionName =='我的发布'}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="media" th:each="question:${Pagination.data}">
+                    <div class="media-left media-middle">
+                        <a href="/profile/information">
+                            <!--/*@thymesVar id="user" type=""*/-->
+                            <img class="media-object img-circle" th:src="${question.user.avatarUrl}" alt="图片">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a th:href="@{'/question/'+${question.id}}" style="text-decoration: none;">
+                            <h4 class="media-heading" th:text="${question.title}"></h4>
+                        </a>
+                        <!--                            <span th:text="${question.description}"></span>-->
+                        <br>
+                        <span class="text-descripte">
+                            <span th:text="${question.commentCount}"></span>个回复  ·
+                            <span th:text="${question.viewCount}"></span>次浏览  ·
+                            <span th:text="${#dates.format(question.gmtCreate,' yyyy-MM-dd HH:mm')}"></span>
+                                <span th:if="${session.user!=null && session.user.id == question.creator}"
+                                      style="text-decoration:none;">
+                                    <a th:href="@{'/publish/'+${question.id}}" class="community-menu"
+                                       style="text-decoration:none;">
+                                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>编辑
+                                    </a>
+                                </span>
+                        </span>
+                    </div>
+<!--                    <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12">-->
+                    <hr>
+                </div>
+                <!--                &lt;!&ndash;            分页&ndash;&gt;-->
+                <nav aria-label="Page navigation" th:if="${Pagination.getTotalPage()>1}">
+                    <ul class="pagination">
+                        <li>
+                            <a th:if="${Pagination.showReturnFirstPage}" th:href="@{'/profile/'+${section}(page=1)}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;&lt;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:if="${Pagination.showPrePage}"
+                               th:href="@{'/profile/'+${section}(page=${Pagination.currentPage-1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <li th:each="page:${Pagination.showPages}" th:class="${Pagination.currentPage==page}?active:''">
+                            <a th:href="@{'/profile/'+${section}(page=${page})}" th:text="${page}"></a>
+                        </li>
+
+                        <li>
+                            <a th:if="${Pagination.showNextPage}"
+                               th:href="@{'/profile/'+${section}(page=${Pagination.currentPage+1})}" aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <!--/*@thymesVar id="TotalPage" type=""*/-->
+                            <a th:if="${Pagination.showReturnEndPage}"
+                               th:href="@{'/profile/'+${section}(page=${Pagination.totalPage})}" aria-label="Next">
+                                <span aria-hidden="true">&gt;&gt;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+
+
+            <!--            最新回复-->
+            <div th:if="${sectionName =='最新回复'}" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="media" th:each="notificationList:${notification.data}">
+                    <div class="media-body">
+                        <p>
+                            <span th:text="${notificationList.notifierName}"></span>&nbsp;
+                            <span th:text="${notificationList.typeName}"></span>&nbsp;
+                            <a th:href="@{'/notification/'+${notificationList.id}}" style="text-decoration: none;"><span
+                                    th:text="${notificationList.outerTitle}" class="media-heading"></span></a>
+                        </p>
+                        <span class="text-descripte">
+                                    <span th:text="${#dates.format(notificationList.gmtCreate,' yyyy-MM-dd HH:mm')}"></span>
+                        </span>
+                        <span th:if="${notificationList.status == 0}" class="glyphicon glyphicon-ice-lolly" style="color: red"></span>
+                        <span th:if="${notificationList.status ==1}" class="glyphicon glyphicon-ice-lolly-tasted" style="color: #2aabd2"></span>
+                    </div>
+                    <hr>
+                </div>
+                <!--            分页-->
+                <nav aria-label="Page navigation" th:if="${notification.getTotalPage()>1}">
+                    <ul class="pagination">
+                        <li>
+                            <a th:if="${notification.showReturnFirstPage}"
+                               th:href="@{'/profile/'+${section}(page=1)}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;&lt;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:if="${notification.showPrePage}"
+                               th:href="@{'/profile/'+${section}(page=${notification.currentPage-1})}"
+                               aria-label="Previous">
+                                <span aria-hidden="true">&lt;</span>
+                            </a>
+                        </li>
+                        <li th:each="page:${notification.showPages}"
+                            th:class="${notification.currentPage==page}?active:''">
+                            <a th:href="@{'/profile/'+${section}(page=${page})}" th:text="${page}"></a>
+                        </li>
+
+                        <li>
+                            <a th:if="${notification.showNextPage}"
+                               th:href="@{'/profile/'+${section}(page=${notification.currentPage+1})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&gt;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <!--/*@thymesVar id="TotalPage" type=""*/-->
+                            <a th:if="${notification.showReturnEndPage}"
+                               th:href="@{'/profile/'+${section}(page=${notification.totalPage})}"
+                               aria-label="Next">
+                                <span aria-hidden="true">&gt;&gt;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+
+
+            <!--    我的个人信息-->
+            <div th:if="${sectionName =='我的个人信息'}">
+                <div style="display: flex;flex-direction: row;align-content: center;">
+                    <div style="margin: 0;position: relative;top: 15px">
+                        账号:<span th:text="${user.accountId}" style="font-size: 15px;color: #2aabd2;"></span>&nbsp;&nbsp;
+                        名字:<span th:text="${user.name}" style="font-size: 15px;color: #2aabd2;"></span><br>
+                        创建时间:<span th:text="${#dates.format(user.gmtCreate,' yyyy-MM-dd HH:mm')}"
+                                   style="font-size: 15px;color: #2aabd2;"></span><br>
+                        修改时间:<span th:text="${#dates.format(user.gmtModified,' yyyy-MM-dd HH:mm')}"
+                                   style="font-size: 15px;color: #2aabd2;"></span>
+                    </div>
+                    &nbsp;&nbsp;
+                    <div style="width: 100px;height: 120px;position: relative;left: 60%">
+                        <a href="/profile/information">
+                            <img th:src="${user.avatarUrl}" alt="图片"
+                                 style="width: 100px;height: 110px;margin-top: -10px;"
+                                 class="img-circle">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--        -->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="list-group section">
+                <a href="/profile/questions"
+                   th:class="${section=='questions'}? 'list-group-item active ':'list-group-item'">我的发布</a>
+
+                <a href="/profile/replies" th:class="${section=='replies'}? 'list-group-item active':'list-group-item'">最新回复
+                                        <span class="badge" th:if="${session.unReadCount != 0}" th:text="${session.unReadCount}"></span>
+                </a>
+                <a href="/profile/information"
+                   th:class="${section=='information'}? 'list-group-item active':'list-group-item'">个人资料</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部备案号-->
+<div th:fragment="footer">
+    <div id="footer">CopyRight@copyYangmoyu 黔ICP备20003575号-1</div>
+</div>
+
+</body>
+</html>

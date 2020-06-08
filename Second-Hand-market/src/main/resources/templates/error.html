@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>TheOne 商城</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/OneCommunity.css">
+    <script src="/js/jquery-3.5.0.min.js"></script>
+    <script src="/js/bootbox.min.js" text="application/javascript"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<!--导航菜单-->
+<div th:insert="navigation::nav"></div>
+
+<div class="jumbotron">
+    <h1>Not Fount !</h1>
+    <p th:text="${Errormessage}"></p>
+    <p><a class="btn btn-primary btn-lg" href="/" role="button">Return index</a></p>
+</div>
+</body>
+</html>
